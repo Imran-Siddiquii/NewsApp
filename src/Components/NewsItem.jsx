@@ -2,8 +2,7 @@ import React, { Component } from "react";
 
 export default class NewsItem extends Component {
   render() {
-    let { title, description, url, urlToImage, publishedAt, author } =
-      this.props?.props;
+    let { title, description, url, urlToImage } = this.props?.props;
     return (
       <>
         <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">

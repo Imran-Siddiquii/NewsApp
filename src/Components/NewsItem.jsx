@@ -22,7 +22,7 @@ export default class NewsItem extends Component {
       this.setState({ loading: true });
 
       const res = await fetch(
-        `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=a8caf6fce60448f68e0b2e2e5abf1f47&page=${this.state.page}&pageSize=${this.props.pageSize}`
+        `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category.category}&apiKey=a8caf6fce60448f68e0b2e2e5abf1f47&page=${this.state.page}&pageSize=${this.props.pageSize}`
       );
       const data = await res.json();
       console.log("data :>> ", data);
@@ -48,26 +48,30 @@ export default class NewsItem extends Component {
           {this.state.loading &&
             this.state.array?.map((val) => {
               return (
-                <div role="status" className="max-w-sm animate-pulse my-7">
+                <div
+                  key={val}
+                  role="status"
+                  className="max-w-sm animate-pulse my-7"
+                >
                   <div className="h-[160px] bg-gray-200 dark:bg-gray-700 w-100 mb-2"></div>
-                  <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
-                  <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
-                  <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
-                  <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
-                  <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
+                  <div className="h-[25px] bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
+                  <div className="h-[25px] bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+                  <div className="h-3 bg-gray-200 rounded dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
+                  <div className="h-3 bg-gray-200 rounded dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
+                  <div className="h-[25px] bg-gray-200 rounded w-25 dark:bg-gray-700 max-w-[70px]"></div>
                   <span className="sr-only">Loading...</span>
                 </div>
               );
             })}
         </div>
-        <div className="mx-12 grid sm:grid-cols-1  md:grid-cols-3 lg:grid-cols-4 gap-2">
+        <div className="mx-12 grid sm:grid-cols-1  md:grid-cols-3 lg:grid-cols-4 gap-2 place-content-center  ">
           {!this.state.loading &&
             this.state?.article?.map((val, index) => (
               <div
                 key={index}
                 className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
               >
-                <a href="/">
+                <a href={val?.url}>
                   <img
                     className="rounded-t-lg w-full h-[160px]"
                     src={val?.urlToImage}
@@ -75,7 +79,7 @@ export default class NewsItem extends Component {
                   />
                 </a>
                 <div className="p-5">
-                  <a href="/">
+                  <a href={val?.url}>
                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                       {val?.title?.slice(0, 35)}...
                     </h5>

@@ -44,7 +44,7 @@ export default class NewsItem extends Component {
   render() {
     return (
       <>
-        <div className="mx-12 grid sm:grid-cols-1  md:grid-cols-3 lg:grid-cols-4 gap-2">
+        <div className="mx-12 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
           {this.state.loading &&
             this.state.array?.map((val) => {
               return (
@@ -64,7 +64,7 @@ export default class NewsItem extends Component {
               );
             })}
         </div>
-        <div className="mx-12 grid sm:grid-cols-1  md:grid-cols-3 lg:grid-cols-4 gap-2 place-content-center  ">
+        <div className="mx-12 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 justify-items-center">
           {!this.state.loading &&
             this.state?.article?.map((val, index) => (
               <div

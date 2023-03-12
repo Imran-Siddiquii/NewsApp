@@ -2,6 +2,7 @@ import "./App.css";
 import React, { Component } from "react";
 import Home from "./Components/Home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Footer } from "./Components/Footer";
 export default class App extends Component {
   render() {
     return (
@@ -45,6 +46,7 @@ export default class App extends Component {
               element={<Home key="technology" category="technology" />}
             />
           </Routes>
+          <Footer />
         </Router>
       </>
     );

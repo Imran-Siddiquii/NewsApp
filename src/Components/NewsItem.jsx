@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Pagination, PaginationItem, Stack } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-
+import Dummy from "./Images/Dummy.png";
 export default class NewsItem extends Component {
   constructor() {
     super();
@@ -16,7 +16,7 @@ export default class NewsItem extends Component {
     };
   }
   // `https://newsapi.org/v2/everything?q=bitcoin&${this.props.category}&apiKey=a8caf6fce60448f68e0b2e2e5abf1f47&page=${this.state.page}&pageSize=${this.props.pageSize}`
-  async componentDidMount() {
+  async componentDidMount(prevProps) {
     this.setState({ loading: true });
     try {
       this.setState({ loading: true });
@@ -25,7 +25,7 @@ export default class NewsItem extends Component {
         `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category.category}&apiKey=a8caf6fce60448f68e0b2e2e5abf1f47&page=${this.state.page}&pageSize=${this.props.pageSize}`
       );
       const data = await res.json();
-      console.log("data :>> ", data);
+      // console.log("data :>> ", data);
       this.setState({
         loading: false,
         article: data.articles,
@@ -33,28 +33,28 @@ export default class NewsItem extends Component {
       });
     } catch (error) {
       this.setState({ loading: false });
-      console.log("connect to the internet", error);
+      // console.log("connect to the internet", error);
     }
   }
   handleChange = (event, value) => {
-    console.log(value, "page number");
+    // console.log(value, "page number");
     this.setState({ page: value });
     this.componentDidMount();
   };
   render() {
     return (
       <>
-        <div className="mx-12 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
+        <div className="mx-12 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 ">
           {this.state.loading &&
             this.state.array?.map((val) => {
               return (
                 <div
                   key={val}
                   role="status"
-                  className="max-w-sm animate-pulse my-7"
+                  className="max-w-sm animate-pulse my-7 justify-items-center"
                 >
                   <div className="h-[160px] bg-gray-200 dark:bg-gray-700 w-100 mb-2"></div>
-                  <div className="h-[25px] bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
+                  <div className="h-[25px] bg-gray-200 rounded-full dark:bg-gray-700 max-w-[350px] mb-2.5"></div>
                   <div className="h-[25px] bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
                   <div className="h-3 bg-gray-200 rounded dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
                   <div className="h-3 bg-gray-200 rounded dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
@@ -71,15 +71,15 @@ export default class NewsItem extends Component {
                 key={index}
                 className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
               >
-                <a href={val?.url}>
+                <a href={val?.url} target="_blank" rel="noreferrer">
                   <img
                     className="rounded-t-lg w-full h-[160px]"
-                    src={val?.urlToImage}
+                    src={val?.urlToImage ? val?.urlToImage : Dummy}
                     alt=""
                   />
                 </a>
                 <div className="p-5">
-                  <a href={val?.url}>
+                  <a href={val?.url} target="_blank" rel="noreferrer">
                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                       {val?.title?.slice(0, 35)}...
                     </h5>
@@ -89,6 +89,8 @@ export default class NewsItem extends Component {
                   </p>
                   <a
                     href={val?.url}
+                    target="_blank"
+                    rel="noreferrer"
                     className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   >
                     Read more
